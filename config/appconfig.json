@@ -1,0 +1,12 @@
+{
+	"server" :{
+		"port": 9998,
+		"root":"/isolat(/)?"
+	},
+	"logging":{
+		"filename":"./isolat.log",
+		"size":100000,
+		"maxNumberOfFiles":5
+	}
+}
+

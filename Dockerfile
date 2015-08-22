@@ -1,10 +1,22 @@
 ##########################################################
-# Dockerfile which builds a base image with oracle-java8.
+# Dockerfile which builds a simple Go restservicce
 ##########################################################
-FROM dockerfile/java:oracle-java8
+FROM golang
 
-ADD . /home
+ADD . /go/src/fag-ark-reaktiv-isolat
 
-WORKDIR /home/src/main/java
+RUN go get github.com/goarne/web
+RUN go install fag-ark-reaktiv-isolat && \
+	mkdir /config && \
+	mkdir /log && \
+	cp /go/src/fag-ark-reaktiv-isolat/config/appconfig.json /config/appconfig_docker.json
+	
 
-RUN javac HelloWorld.java
+
+
+EXPOSE 9998
+
+WORKDIR /
+
+CMD $GOPATH/bin/fag-ark-reaktiv-isolat -config=/config/appconfig_docker.json
+
