@@ -10,7 +10,7 @@ type RestHandler struct {
 }
 
 func NyRestHandler() *RestHandler {
-	return &RestHandler{mottak: NyttMottak()}
+	return &RestHandler{mottak: OpprettMottak()}
 }
 
 func (h RestHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {

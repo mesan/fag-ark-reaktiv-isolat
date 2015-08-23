@@ -4,7 +4,7 @@ type Mottak struct {
 	innKo chan IsolatFange
 }
 
-func NyttMottak() *Mottak {
+func OpprettMottak() *Mottak {
 	m := &Mottak{innKo: make(chan IsolatFange)}
 	go m.HandterMottaksKo()
 	return m

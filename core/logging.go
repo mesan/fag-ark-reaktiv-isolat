@@ -14,12 +14,12 @@ var (
 )
 
 func InitLoggers(logConfig LogConfig) {
-	logFil := opprettLoggFil(logConfig)
+	logFil := createLogFile(logConfig)
 
-	initLoggers(logFil, logFil, logFil, logFil)
+	createLoggers(logFil, logFil, logFil, logFil)
 }
 
-func opprettLoggFil(config LogConfig) io.Writer {
+func createLogFile(config LogConfig) io.Writer {
 	file, err := os.OpenFile(config.Filename, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 
 	if err != nil {
@@ -29,7 +29,7 @@ func opprettLoggFil(config LogConfig) io.Writer {
 	return io.MultiWriter(file, os.Stdout)
 }
 
-func initLoggers(traceHandle io.Writer, infoHandle io.Writer, warningHandle io.Writer, errorHandle io.Writer) {
+func createLoggers(traceHandle io.Writer, infoHandle io.Writer, warningHandle io.Writer, errorHandle io.Writer) {
 
 	Trace = log.New(traceHandle,
 		"TRACE: ",
