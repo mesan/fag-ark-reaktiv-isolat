@@ -2,6 +2,7 @@ package core
 
 import (
 	"encoding/json"
+	. "github.com/goarne/logging"
 	"net/http"
 )
 

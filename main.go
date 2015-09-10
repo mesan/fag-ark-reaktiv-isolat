@@ -4,27 +4,40 @@ package main
 import (
 	"fag-ark-reaktiv-isolat/core"
 	"flag"
+	. "github.com/goarne/logging"
 	"github.com/goarne/web"
+	"io"
 	"net/http"
+	"os"
 	"strconv"
 )
 
 func main() {
 	appConfig := lastAppKonfig()
 
-	core.InitLoggers(appConfig.Logging)
+	opprettLoggere(appConfig.Logging)
 
 	skrivOppstartsMelding(appConfig)
 
 	http.ListenAndServe(":"+strconv.FormatInt(appConfig.Server.Port, 10), opprettIsolatRessurs(appConfig))
 }
 
+func opprettLoggere(logConfig LogConfig) {
+	rw := RotatingFileWriter{FileName: logConfig.Filename, Size: logConfig.Size, MaxNumberOfFiles: logConfig.MaxNumberOfFiles, File: &os.File{}}
+
+	rw.OpenFile()
+
+	logFil := io.MultiWriter(&rw, os.Stdout)
+
+	InitLoggers(logFil, logFil, logFil, logFil)
+}
+
 //Logger applikasjonskonfigurasjon
 func skrivOppstartsMelding(appConfig core.AppConfig) {
-	core.Info.Println("Laster appconfig:", appConfig.Logging.Filename)
-	core.Info.Println("Starter isolat på port:", strconv.FormatInt(appConfig.Server.Port, 10))
-	core.Info.Println("Isolat er tilgjengelig på ", appConfig.Server.Root)
-	core.Info.Println("Skriver til loggfil: ", appConfig.Logging.Filename)
+	Info.Println("Laster appconfig:", appConfig.Logging.Filename)
+	Info.Println("Starter isolat på port:", strconv.FormatInt(appConfig.Server.Port, 10))
+	Info.Println("Isolat er tilgjengelig på ", appConfig.Server.Root)
+	Info.Println("Skriver til loggfil: ", appConfig.Logging.Filename)
 }
 
 //Laster inn applikasjonskonfigurasjon fra en JSON konfigurasjonsfil.

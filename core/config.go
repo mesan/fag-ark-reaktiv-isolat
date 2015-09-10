@@ -3,6 +3,7 @@ package core
 import (
 	"encoding/json"
 	"fmt"
+	. "github.com/goarne/logging"
 	"io/ioutil"
 	"os"
 )
@@ -10,12 +11,6 @@ import (
 type AppConfig struct {
 	Server  ServerConfig
 	Logging LogConfig
-}
-
-type LogConfig struct {
-	Filename         string
-	Size             int64
-	MaxNumberOfFiles int
 }
 
 type ServerConfig struct {

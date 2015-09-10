@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	. "github.com/goarne/logging"
 	"net/http"
 	"time"
 )

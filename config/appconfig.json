@@ -4,7 +4,7 @@
 		"root":"/isolat(/)?"
 	},
 	"logging":{
-		"filename":"./isolat.log",
+		"filename":"./logs/isolat.log",
 		"size":100000,
 		"maxNumberOfFiles":5
 	}

@@ -1,5 +1,9 @@
 package core
 
+import (
+	. "github.com/goarne/logging"
+)
+
 type Mottak struct {
 	innKo chan IsolatFange
 }

@@ -6,9 +6,11 @@ FROM golang
 ADD . /go/src/fag-ark-reaktiv-isolat
 
 RUN go get github.com/goarne/web
+RUN go get github.com/goarne/logging
+
 RUN go install fag-ark-reaktiv-isolat && \
 	mkdir /config && \
-	mkdir /log && \
+	mkdir /logs && \
 	cp /go/src/fag-ark-reaktiv-isolat/config/appconfig.json /config/appconfig_docker.json
 	
 
