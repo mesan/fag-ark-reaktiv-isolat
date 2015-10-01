@@ -14,6 +14,7 @@ type Isolat struct {
 	isoleringsTid int
 	callbackUrl   string
 	method        string
+	headers       map[string]string
 }
 
 func (i *Isolat) StartSoning() {
@@ -33,6 +34,11 @@ func (i *Isolat) AvsluttSoning() error {
 
 	client := &http.Client{}
 	req, _ := http.NewRequest(i.method, i.callbackUrl, bytes.NewReader(fangeBytes))
+
+	for k, v := range i.headers {
+		req.Header.Add(k, v)
+	}
+
 	resp, e := client.Do(req)
 
 	if e != nil {

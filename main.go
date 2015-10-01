@@ -13,6 +13,7 @@ import (
 )
 
 func main() {
+
 	appConfig := lastAppKonfig()
 
 	opprettLoggere(appConfig.Logging)
@@ -57,7 +58,7 @@ func opprettIsolatRessurs(appConfig core.AppConfig) *web.WebRouter {
 	r := web.NewRoute()
 
 	r.Path(appConfig.Server.Root)
-	r.Method(web.HttpGet).Method(web.HttpPost)
+	r.Method(web.HttpGet).Method(web.HttpPost).Method(web.HttpOptions)
 	r.Handler(core.NyRestHandler())
 
 	router := web.NewWebRouter()

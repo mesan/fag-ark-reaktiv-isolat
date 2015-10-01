@@ -3,6 +3,7 @@ package core
 import (
 	"encoding/json"
 	. "github.com/goarne/logging"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -22,7 +23,11 @@ func (h RestHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		h.ReceivePost(w, r)
 	case "OPTIONS":
 		w.Write([]byte("The handler supports GET and POST!"))
+		body, _ := ioutil.ReadAll(r.Body)
+
+		w.Write([]byte(body))
 	default:
+
 		http.Error(w, "Method not supported.", 405)
 		Error.Println("Metode er ikke støttet: ", r.Method)
 	}
@@ -30,15 +35,17 @@ func (h RestHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func (h RestHandler) ReceiveGet(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Eksempel på payload: "))
+	headers := make(map[string]string)
+	headers["Content-Type"] = "application/json"
 
-	fange := IsolatFange{FangeTilIsolat: Fange{Id: "1ES532KD1", Navn: "Albert Åbert"}, IsoleringsTid: 5, CallbackUrl: "http://dummy.url/", Method: "GET"}
+	fange := IsolatFange{FangeTilIsolat: Fange{Id: "1ES532KD1", Navn: "Albert Åbert"}, IsoleringsTid: 5, CallbackUrl: "http://dummy.url/", Method: "GET", Headers: headers}
 
 	encoder := json.NewEncoder(w)
 	encoder.Encode(&fange)
 }
 
 func (h RestHandler) ReceivePost(w http.ResponseWriter, r *http.Request) {
-
+	//	return
 	decoder := json.NewDecoder(r.Body)
 	fange := IsolatFange{}
 	err := decoder.Decode(&fange)

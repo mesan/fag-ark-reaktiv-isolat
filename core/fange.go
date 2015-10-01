@@ -6,6 +6,7 @@ type IsolatFange struct {
 	IsoleringsTid  int
 	CallbackUrl    string
 	Method         string
+	Headers        map[string]string
 }
 
 //Domeneklasse for en fangerepresentasjon.
