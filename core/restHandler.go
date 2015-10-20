@@ -39,9 +39,8 @@ func (h RestHandler) ReceiveGet(w http.ResponseWriter, r *http.Request) {
 	headers["Content-Type"] = "application/json"
 
 	fange := IsolatFange{FangeTilIsolat: Fange{Id: "1ES532KD1", Navn: "Albert Åbert"}, IsoleringsTid: 5, CallbackUrl: "http://dummy.url/", Method: "GET", Headers: headers}
-
-	encoder := json.NewEncoder(w)
-	encoder.Encode(&fange)
+	jsonData, _ := json.Marshal(&fange)
+	w.Write(jsonData)
 }
 
 func (h RestHandler) ReceivePost(w http.ResponseWriter, r *http.Request) {

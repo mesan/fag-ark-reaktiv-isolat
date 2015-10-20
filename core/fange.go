@@ -2,17 +2,17 @@ package core
 
 //DTO brukt til transport av fange som skal settes i isolat.
 type IsolatFange struct {
-	FangeTilIsolat Fange
-	IsoleringsTid  int
-	CallbackUrl    string
-	Method         string
-	Headers        map[string]string
+	FangeTilIsolat Fange             `json:"fangeTilIsolat"`
+	IsoleringsTid  int               `json:"isoleringsTid"`
+	CallbackUrl    string            `json:"callbackUrl"`
+	Method         string            `json:"method"`
+	Headers        map[string]string `json:"headers"`
 }
 
 //Domeneklasse for en fangerepresentasjon.
 type Fange struct {
-	Id   string
-	Navn string
+	Id   string `json:"id"`
+	Navn string `json:"navn"`
 }
 
 func (f Fange) String() string {
